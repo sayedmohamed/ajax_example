@@ -5,9 +5,10 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
     <script>
         $( document ).ready(function() {
-            $("#get_ajax_link").click(function(){
-                alert("clicked");
-                $("#ajax_results").load("/ajax_results/");
+            $("#select_widget").change(function(){
+                var currentSelection = $(this).val();
+                var target = "/ajax_results/" + currentSelection;
+                $("#ajax_results").load(target);
             });
         });
     </script>
@@ -15,7 +16,7 @@
 <body>
 
 <h1>Dirt Simple Ajax Example</h1>
-<select>
+<select id="select_widget">
     {% for option in dropdown_options %}
         <option value = "{{ option.type }}">{{ option.type }}</option>
     {% endfor %}
@@ -26,7 +27,6 @@
 
 <div id="ajax_results"></div>
 
-<p id="get_ajax_link">Get Ajax Results</p>
 
 {% comment %}
 {% for each in ajax_results %}

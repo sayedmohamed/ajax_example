@@ -11,8 +11,13 @@ def home(request):
                                 context_instance = RequestContext(request)
     )
 
-def ajax_results(request):
+def ajax_results(request, type=None):
     if request.is_ajax():
-        return HttpResponse("ajax results")
+        if type:
+            matches = item.objects.filter(type__exact = type)
+            results = ""
+            for each in matches:
+                results += "<tr><td>" + each.name + "</td></tr>"
+            return HttpResponse(results)
     else:
         return HttpResponse("you aint ajax")
