@@ -15,9 +15,11 @@ def ajax_results(request, type=None):
     if request.is_ajax():
         if type:
             matches = item.objects.filter(type__exact = type)
-            results = ""
+            results = "<h3>Showing results for '" + type + "'</h3>"
+            results += "<table>"
             for each in matches:
                 results += "<tr><td>" + each.name + "</td></tr>"
+            results += "</table>"
             return HttpResponse(results)
     else:
         return HttpResponse("you aint ajax")
