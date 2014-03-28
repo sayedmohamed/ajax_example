@@ -12,11 +12,18 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
     <script>
         $( document ).ready(function() {
-            //on change event for select wiget to execute query and update ajax_results
-            $("#select_widget").change(function(){
-                var currentSelection = $(this).val();
+
+            function get_ajax_results() {
+                var currentSelection = $('#select_widget').val();
                 var target = "/ajax_results/" + currentSelection;
                 $("#ajax_results").load(target);
+            }
+
+            get_ajax_results(); //go ahead and get results for default selection
+
+            //on change event for select wiget to execute query and update ajax_results
+            $("#select_widget").change(function(){
+                get_ajax_results();
             });
 
             //on submit event for form submit to post data
@@ -27,6 +34,9 @@
                 url: "/ajax_post_view/",
                 success: function(response) { // on success..
                     $('#success_div').html(response); // update the DIV
+                    get_ajax_results();
+                    $("input[type=text], textarea").val("");
+
                 },
                 error: function(e, x, r) { // on error..
                     $('#error_div').html(e); // update the DIV
