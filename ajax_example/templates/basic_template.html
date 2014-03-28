@@ -43,8 +43,8 @@
                 url: "/ajax_post_view/",
                 success: function(response) { // on success..
                     $('#success_div').html(response); // update the DIV
-                    get_ajax_results();
-                    $("input[type=text], textarea").val("");
+                    get_ajax_results(); //update the ajax search to display the new data (assuming the selector is on correct category)
+                    $("input[type=text], textarea").val(""); //clear the form
 
                 },
                 error: function(e, x, r) { // on error..
